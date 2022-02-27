@@ -53,8 +53,8 @@ setInterval(function(){ joy.y=Joy2.GetY(); }, 50);
 
 
 let myClientID = "";
-myx = 0;
-myx = 0;
+let myx = 0;
+let myy = 0;
 joinRoom();
 
 // setTimeout(() => { collapseSmoke(); joinRoom();}, 2000);
@@ -173,7 +173,7 @@ function paintGame(state) {
     numActivePlayers = '1';
   }
   // top_ctx1.fillText(numActivePlayers, 100, 90);
-  top_ctx1.fillText(Math.round(myx), 100, 90);
+  // top_ctx1.fillText(Math.round(myx), 100, 90);
   top_ctx1.fillStyle = 'rgba(255, 255, 255, .3)';
   top_ctx1.font = "24px Copperplate, Papyrus, fantasy";
   display_text = "Red"
@@ -182,8 +182,8 @@ function paintGame(state) {
   // display blue team score
   bounce_count = state.bounce_count;
   top_ctx1.font = getFont(bounce_count);
-  // top_ctx1.fillText(bounce_count, 260, 90);
-  top_ctx1.fillText(Math.round(myy), 260, 90);
+  top_ctx1.fillText(bounce_count, 260, 90);
+  // top_ctx1.fillText(Math.round(myy), 260, 90);
   top_ctx1.fillStyle = 'rgba(255, 255, 255, .3)';
   top_ctx1.font = "24px Copperplate, Papyrus, fantasy";
   display_text = "Blue"
