@@ -14,4 +14,4 @@ the videos:
 <p>How to deploy it: https://www.youtube.com/watch?v=M9RDYkFs-EQ
 <p>The joystick comes from Roberto D'Amico (Bobboteck) under the MIT license.
 
-<p>You can try out the beach ball game here: https://hardcore-borg-93c09f.netlify.app
+<p>You can try out the flea football game here: https://hardcore-borg-93c09f.netlify.app
