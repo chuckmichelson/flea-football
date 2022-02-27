@@ -219,7 +219,7 @@ function recordButtonPress(clientid) {
       // console.log("match: " + match)
       if (match === true) {
          state.activePlayers[i].button = true;
-         state.activePlayers[i].afterimage = 15;
+         state.activePlayers[i].afterimage = 10;
          console.log("Recorded the button press")
       }
    }

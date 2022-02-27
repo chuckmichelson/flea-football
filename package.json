@@ -4,7 +4,7 @@
     "random-words": "^1.1.2",
     "socket.io": "^2.3.0"
   },
-  "name": "beach-ball",
+  "name": "soccer",
   "version": "1.0.0",
   "description": "node app ",
   "main": "index.html",
@@ -16,13 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chuckmichelson/beach-ball.git"
+    "url": "git+https://github.com/chuckmichelson/soccer.git"
   },
   "author": "chuckmichelson",
   "license": "ISC",
-  "homepage": "https://github.com/chuckmichelson/beach-ball#readme",
+  "homepage": "https://github.com/chuckmichelson/soccer#readme",
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/chuckmichelson/beach-ball/issues"
+    "url": "https://github.com/chuckmichelson/soccer/issues"
   }
 }
