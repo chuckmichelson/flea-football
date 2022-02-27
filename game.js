@@ -14,6 +14,7 @@ const { BOUNCE_IMAGE_DECAY } = require('./constants');
 const { KICK_TIME } = require('./constants');
 const { PITCH_WIDTH, PITCH_LENGTH } = require('./constants');
 const { BALL_BOUNDARY_LEFT, BALL_BOUNDARY_RIGHT, BALL_BOUNDARY_TOP, BALL_BOUNDARY_BOTTOM } = require('./constants');
+const { PLAYER_BOUNDARY_LEFT, PLAYER_BOUNDARY_RIGHT, PLAYER_BOUNDARY_TOP, PLAYER_BOUNDARY_BOTTOM } = require('./constants');
 
 
 const BEACH_BALL_ACCELERATION = DRAG_COEFFICIENT / BEACH_BALL_MASS;
@@ -276,18 +277,19 @@ function updateVelocityAndPosition(state) {
     if (state.activePlayers[i].bounced === true) {
       state.activePlayers[i].afterimage = Math.max(0, 15 - BOUNCE_IMAGE_DECAY * (Date.now() - state.activePlayers[i].bouncetimestap));
     }
+
     // keep this player on the screen
-    if (state.activePlayers[i].posx < 0 + AVATAR_RADIUS) {
-      state.activePlayers[i].posx = 0 + AVATAR_RADIUS;
+    if (state.activePlayers[i].posx < PLAYER_BOUNDARY_LEFT) {
+      state.activePlayers[i].posx = PLAYER_BOUNDARY_LEFT;
     }
-    if (state.activePlayers[i].posx > CANVAS_WIDTH - AVATAR_RADIUS) {
-      state.activePlayers[i].posx = CANVAS_WIDTH - AVATAR_RADIUS;
+    if (state.activePlayers[i].posx > PLAYER_BOUNDARY_RIGHT) {
+      state.activePlayers[i].posx = PLAYER_BOUNDARY_RIGHT;
     }
-    if (state.activePlayers[i].posy < 0 + AVATAR_RADIUS) {
-      state.activePlayers[i].posy = 0 + AVATAR_RADIUS;
+    if (state.activePlayers[i].posy < PLAYER_BOUNDARY_TOP) {
+      state.activePlayers[i].posy = PLAYER_BOUNDARY_TOP;
     }
-    if (state.activePlayers[i].posy > CANVAS_HEIGHT - AVATAR_RADIUS) {
-      state.activePlayers[i].posy = CANVAS_HEIGHT - AVATAR_RADIUS;
+    if (state.activePlayers[i].posy > PLAYER_BOUNDARY_BOTTOM) {
+      state.activePlayers[i].posy = PLAYER_BOUNDARY_BOTTOM;
     }
 
     // distance between this player and the ball
