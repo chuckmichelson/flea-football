@@ -170,10 +170,7 @@ function paintGame(state) {
   top_ctx1.fillText(numActivePlayers, 100, 90);
   top_ctx1.fillStyle = 'rgba(255, 255, 255, .3)';
   top_ctx1.font = "24px Copperplate, Papyrus, fantasy";
-  display_text = "Players"
-  if (numActivePlayers == 1) {
-    display_text = "Player"
-  }
+  display_text = "Red"
   top_ctx1.fillText(display_text, 100, 120);
 
   // display bounce count
@@ -182,10 +179,7 @@ function paintGame(state) {
   top_ctx1.fillText(bounce_count, 260, 90);
   top_ctx1.fillStyle = 'rgba(255, 255, 255, .3)';
   top_ctx1.font = "24px Copperplate, Papyrus, fantasy";
-  display_text = "Bounces"
-  if (bounce_count == 1) {
-    display_text = "Bounce"
-  }
+  display_text = "Blue"
   top_ctx1.fillText(display_text, 260, 120);
 
 }

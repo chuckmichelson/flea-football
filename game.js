@@ -11,6 +11,7 @@ const { DRAG_COEFFICIENT } = require('./constants');
 const { BOUNCE_VELOCITY } = require('./constants');
 const { JOYSTICK_MULTIPLIER } = require('./constants');
 const { BOUNCE_IMAGE_DECAY } = require('./constants');
+const { KICK_TIME } = require('./constants');
 
 const BEACH_BALL_ACCELERATION = DRAG_COEFFICIENT / BEACH_BALL_MASS;
 const PIXELS_PER_METER = BALL_WIDTH / BEACH_BALL_DIAMETER;
@@ -254,8 +255,8 @@ function updateVelocityAndPosition(state) {
     if (joystick_vector_length < 0.01) {
       joystick_vector_length = 0.01;
     }
-    state.activePlayers[i].velx = state.activePlayers[i].joyx * JOYSTICK_MULTIPLIER / joystick_vector_length;
-    state.activePlayers[i].vely = -state.activePlayers[i].joyy * JOYSTICK_MULTIPLIER / joystick_vector_length;
+    state.activePlayers[i].velx = state.activePlayers[i].joyx * JOYSTICK_MULTIPLIER / 140;
+    state.activePlayers[i].vely = -state.activePlayers[i].joyy * JOYSTICK_MULTIPLIER / 140;
     state.activePlayers[i].posx += state.activePlayers[i].velx * (Date.now() - state.activePlayers[i].joytimestamp);
     state.activePlayers[i].posy += state.activePlayers[i].vely * (Date.now() - state.activePlayers[i].joytimestamp);
 
@@ -289,8 +290,8 @@ function updateVelocityAndPosition(state) {
     // if this player is touching the ball, make the ball bounce
     time_since_bounce = Date.now() - state.last_bounce_start;
     if (distance <= BALL_WIDTH / 2 + AVATAR_RADIUS) {   // bounce
-      console.log("bounce")
-      console.log(randomWords(5));
+      // console.log("time_since_bounce: " + time_since_bounce)
+      // console.log(randomWords(5));
       state.activePlayers[i].bounced = true;
       state.activePlayers[i].bouncetimestap = Date.now();
       state.last_bounce_start = Date.now();
@@ -310,8 +311,10 @@ function updateVelocityAndPosition(state) {
   velunity = state.ball.vel_unit.y;
 
   // kinematic equation to calculate the ball position as a function of time
-  state.ball.pos.x = x + BOUNCE_VELOCITY * velunitx * (Date.now() - state.last_bounce_start) / 1000 + 1 / 2 * velunitx * BEACH_BALL_ACCELERATION * Math.pow((Date.now() - state.last_bounce_start) / 1000, 2);
-  state.ball.pos.y = y + BOUNCE_VELOCITY * velunity * (Date.now() - state.last_bounce_start) / 1000 + 1 / 2 * velunity * BEACH_BALL_ACCELERATION * Math.pow((Date.now() - state.last_bounce_start) / 1000, 2);
+  if ( Date.now() - state.last_bounce_start < KICK_TIME) {
+    state.ball.pos.x = x + BOUNCE_VELOCITY * velunitx * (Date.now() - state.last_bounce_start) / 1000 + 1 / 2 * velunitx * BEACH_BALL_ACCELERATION * Math.pow((Date.now() - state.last_bounce_start) / 1000, 2);
+    state.ball.pos.y = y + BOUNCE_VELOCITY * velunity * (Date.now() - state.last_bounce_start) / 1000 + 1 / 2 * velunity * BEACH_BALL_ACCELERATION * Math.pow((Date.now() - state.last_bounce_start) / 1000, 2);
+  }
 
   return state;
 }

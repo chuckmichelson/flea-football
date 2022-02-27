@@ -8,11 +8,12 @@ const AVATAR_RADIUS = 5;
 const BEACH_BALL_MASS = 0.1; // in kg
 const BEACH_BALL_DIAMETER = 0.64; // in meters (24" ball)
 const DRAG_COEFFICIENT = -3; // air resistance, in arbitrary units
-const BOUNCE_VELOCITY = 100; // initial velocity of ball right after bounce, in m/s
-const JOYSTICK_MULTIPLIER = 0.02; // for translating arbitrary joystick units into player velocity
+const BOUNCE_VELOCITY = 80; // initial velocity of ball right after bounce, in m/s
+const JOYSTICK_MULTIPLIER = 0.04; // for translating arbitrary joystick units into player velocity
 const BOUNCE_IMAGE_DECAY = 0.01;
 const PITCH_LENGTH = 360;
 const PITCH_WIDTH = 238;
+const KICK_TIME = 2735;
 
 module.exports = {
   FRAME_RATE,
@@ -30,4 +31,5 @@ module.exports = {
   BOUNCE_IMAGE_DECAY,
   PITCH_LENGTH,
   PITCH_WIDTH,
+  KICK_TIME,
 }
