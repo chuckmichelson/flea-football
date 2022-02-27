@@ -12,6 +12,9 @@ const { BOUNCE_VELOCITY } = require('./constants');
 const { JOYSTICK_MULTIPLIER } = require('./constants');
 const { BOUNCE_IMAGE_DECAY } = require('./constants');
 const { KICK_TIME } = require('./constants');
+const { PITCH_WIDTH, PITCH_LENGTH } = require('./constants');
+const { BALL_BOUNDARY_LEFT, BALL_BOUNDARY_RIGHT, BALL_BOUNDARY_TOP, BALL_BOUNDARY_BOTTOM } = require('./constants');
+
 
 const BEACH_BALL_ACCELERATION = DRAG_COEFFICIENT / BEACH_BALL_MASS;
 const PIXELS_PER_METER = BALL_WIDTH / BEACH_BALL_DIAMETER;
@@ -152,20 +155,29 @@ function gameLoop(state) {
   // }
 
   // keep the ball on the board
-  lost_ball = false;
-  if (state.ball.pos.x < 0 - BALL_WIDTH / 2 + 6) {
-    lost_ball = true;
+  scored_goal = false;
+  // boundary_top = CANVAS_HEIGHT / 2 - PITCH_WIDTH / 2 + BALL_WIDTH / 2;
+  // boundary_bottom = CANVAS_HEIGHT / 2 + PITCH_WIDTH / 2 - BALL_WIDTH / 2;
+
+  if (state.ball.pos.x < BALL_BOUNDARY_LEFT) {
+    state.ball.vel_unit.x = -state.ball.vel_unit.x;
+    state.ball.last_bounce.x = BALL_BOUNDARY_LEFT - (state.ball.last_bounce.x - BALL_BOUNDARY_LEFT);
+    // scored_goal = true;
   }
-  if (state.ball.pos.x > CANVAS_WIDTH + BALL_WIDTH / 2 - 6) {
-    lost_ball = true;
+  if (state.ball.pos.x > BALL_BOUNDARY_RIGHT) {
+    state.ball.vel_unit.x = -state.ball.vel_unit.x;
+    state.ball.last_bounce.x = BALL_BOUNDARY_RIGHT + (BALL_BOUNDARY_RIGHT - state.ball.last_bounce.x);
+    // scored_goal = true;
   }
-  if (state.ball.pos.y < 0 - BALL_WIDTH / 2 + 6) {
-    lost_ball = true;
+  if (state.ball.pos.y < BALL_BOUNDARY_TOP) {
+    state.ball.vel_unit.y = -state.ball.vel_unit.y;
+    state.ball.last_bounce.y =  BALL_BOUNDARY_TOP - (state.ball.last_bounce.y - BALL_BOUNDARY_TOP);
   }
-  if (state.ball.pos.y > CANVAS_HEIGHT + BALL_WIDTH / 2 - 6) {
-    lost_ball = true;
+  if (state.ball.pos.y > BALL_BOUNDARY_BOTTOM) {
+    state.ball.vel_unit.y = -state.ball.vel_unit.y;
+    state.ball.last_bounce.y =  BALL_BOUNDARY_BOTTOM + (BALL_BOUNDARY_BOTTOM - state.ball.last_bounce.y);
   }
-  if (lost_ball === true) {
+  if (scored_goal === true) {
     state.ball.pos.x = CANVAS_WIDTH / 2;
     state.ball.pos.y = CANVAS_HEIGHT / 2;
     state.round_count = 0;

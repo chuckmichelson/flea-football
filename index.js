@@ -53,6 +53,8 @@ setInterval(function(){ joy.y=Joy2.GetY(); }, 50);
 
 
 let myClientID = "";
+myx = 0;
+myx = 0;
 joinRoom();
 
 // setTimeout(() => { collapseSmoke(); joinRoom();}, 2000);
@@ -127,6 +129,8 @@ function paintGame(state) {
   for (let i = 0; i < state.numActivePlayers; i++) {
     ctx2.strokeStyle = 'red';
     if (state.activePlayers[i].clientid ===  myClientID) {
+      myx = state.activePlayers[i].posx;
+      myy = state.activePlayers[i].posy;
       ctx2.lineWidth = 2;
     } else {
       ctx2.lineWidth = 1;
@@ -163,21 +167,23 @@ function paintGame(state) {
   top_ctx1.textAlign = "center";
   numActivePlayers = state.activePlayers.length;
 
-  // display number of players present
+  // display red team score
   top_ctx1.font = getFont(numActivePlayers);
   if (numActivePlayers == undefined) {
     numActivePlayers = '1';
   }
-  top_ctx1.fillText(numActivePlayers, 100, 90);
+  // top_ctx1.fillText(numActivePlayers, 100, 90);
+  top_ctx1.fillText(Math.round(myx), 100, 90);
   top_ctx1.fillStyle = 'rgba(255, 255, 255, .3)';
   top_ctx1.font = "24px Copperplate, Papyrus, fantasy";
   display_text = "Red"
   top_ctx1.fillText(display_text, 100, 120);
 
-  // display bounce count
+  // display blue team score
   bounce_count = state.bounce_count;
   top_ctx1.font = getFont(bounce_count);
-  top_ctx1.fillText(bounce_count, 260, 90);
+  // top_ctx1.fillText(bounce_count, 260, 90);
+  top_ctx1.fillText(Math.round(myy), 260, 90);
   top_ctx1.fillStyle = 'rgba(255, 255, 255, .3)';
   top_ctx1.font = "24px Copperplate, Papyrus, fantasy";
   display_text = "Blue"
@@ -224,10 +230,10 @@ function drawCircle(ctx, x, y, r) {
 
 function getFont(value) {
   if (value === 0) {
-    fontsize = 120;
+    fontsize = 60;
   } else {
     ndigits = Math.ceil(Math.log10(value + 1));
-    fontsize = 120 - 20 * (ndigits-1);
+    fontsize = 60 - 20 * (ndigits-1);
     console.log("Value: " + value + ", ndigits: " + ndigits + ", fontsize: " + fontsize)
   }
   return fontsize + "px Copperplate, Papyrus, fantasy";
