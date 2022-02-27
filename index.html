@@ -1,0 +1,238 @@
+<!doctype html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta charset="UTF-8"> -->
+  <title>Beach Ball</title>
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
+
+<style>
+.collapsible {
+  background-color: 'white';
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: 'black';
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: visible;
+  background-color: 'black';
+}
+
+
+
+
+</style>
+
+<script src="joy.js"></script>
+
+</head>
+
+<body>
+
+
+<div>
+
+
+<center>
+
+<div id="canvasesdiv" style="position:relative; width:360px; height:150px">
+<canvas id="top_display1"
+style="z-index: 1;
+position:absolute;
+left:0px;
+top:0px;
+" height="150px" width="360px">
+This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+<canvas id="top_display2"
+style="z-index: 2;
+position:absolute;
+left:0px;
+top:0px;
+" height="150px" width="360px">
+This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+</div>
+</center>
+
+
+<!-- <center> -->
+<!-- <button onclick="myFunction()">Click Me</button> -->
+<!-- <div id="myDIV"> -->
+  <!-- <img src="images/dragon.gif" id="smoke" alt="this slowpoke moves"  width="554" /> -->
+<!-- </div> -->
+<!-- </center> -->
+
+
+
+<!-- <div><iframe src="https://giphy.com/embed/ftfVpeWsm95QgGfOZ8" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/desktoppaints-smoke-puff-smog-ftfVpeWsm95QgGfOZ8">via GIPHY</a></p></div> -->
+<!-- <center><h1>Spirits present: <span id="numPlayersDisplay"></span> Letter: <span id="letterDisplay"></span></h1></center>
+<!-- <input type="text" placeholder="Enter Ouija Code" id="ouijaCodeInput"/> -->
+<!-- <center><h1>X: <span id="XcoordDisplay"></span> Y: <span id="YcoordDisplay"></span></h1></center> -->
+<section>
+<center>
+
+<div>
+
+<!-- <button type="submit" class="btn btn-success" id="smokeBtn">Make Smoke</button> -->
+<div id="canvasesdiv" style="position:relative; display: inline-block; width:360px; height:360px">
+<canvas id="layer1"
+style="z-index: 1;
+position:absolute;
+left:0px;
+top:0px;
+" height="360px" width="360px">
+This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+<canvas id="layer2"
+style="z-index: 2;
+position:absolute;
+left:0px;
+top:0px;
+" height="360px" width="360px">
+This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+<canvas id="layer3"
+style="z-index: 3;
+position:absolute;
+left:0px;
+top:0px;
+" height="360px" width="360px">
+This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+</div>
+
+</center>
+
+</section>
+
+<br>
+
+
+
+<center>
+  <section class="vh-100">
+    <div class="container h-100">
+
+      <div id="initialScreen" class="h-100">
+        <div class="d-flex flex-column align-items-center justify-content-center h-100">
+            <!-- <h1>Multiplayer Snake</h1> -->
+<!--             <button
+              type="submit"
+              class="btn btn-success"
+              id="newGameButton"
+            >
+              Create New Game
+            </button>
+            <div>OR</div>
+  -->           <div class="form-group">
+              <input type="text" placeholder="Enter Initials (2 letters)" id="gameCodeInput"/>
+
+            <button
+              type="submit"
+              class="button-3"
+              id="joinGameBtn"
+            >
+              Join Game
+            </button>
+            </div>
+        </div>
+      </div>
+
+<!--       <div id="gameScreen" class="h-100">
+        <div class="d-flex flex-column align-items-center justify-content-center h-100">
+
+          <h1>Your game code is: <span id="gameCodeDisplay"></span></h1>
+
+          <canvas id="canvas"></canvas>
+        </div>
+      </div> -->
+
+    </div>
+
+
+<div id="joydiv" style="position:relative; display: inline-block; width:120px; height:120px">
+
+<canvas id="joycanvas"
+style="z-index: 1;
+position:absolute;
+left:0px;
+top:0px;
+" height="120px" width="120px">
+This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+
+</div>
+
+<!--     <div id="gameButtonDiv" class="h-100"><center><button
+              type="submit"
+              class="button-3"
+              id="bounceButton"
+              style = "display:none"
+            >Bounce</center></div> -->
+
+  </section>
+</center>
+
+
+
+
+
+
+<!--       <div>
+        <center>
+        <div id="joy2Div"></div>
+        Posizione X:<input id="joy2PosizioneX" type="text" /></br>
+        Posizione Y:<input id="joy2PosizioneY" type="text" /></br>
+        Direzione:<input id="joy2Direzione" type="text" /></br>
+        X :<input id="joy2X" type="text" /></br>
+        Y :<input id="joy2Y" type="text" />
+        </center>
+      </div>
+    </div> -->
+
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<!-- <script src="/socket.io/socket.io.js"></script> -->
+<script type="text/javascript" src="index.js"></script>
+
+
+
+<!--     <script type="text/javascript">
+
+// Create JoyStick object into the DIV 'joy2Div'
+var joy2Param = { "title": "joystick2", "autoReturnToCenter": true };
+var Joy2 = new JoyStick('joy2Div', joy2Param);
+
+var joy2IinputPosX = document.getElementById("joy2PosizioneX");
+var joy2InputPosY = document.getElementById("joy2PosizioneY");
+var joy2Direzione = document.getElementById("joy2Direzione");
+var joy2X = document.getElementById("joy2X");
+var joy2Y = document.getElementById("joy2Y");
+
+setInterval(function(){ joy2IinputPosX.value=Joy2.GetPosX(); }, 50);
+setInterval(function(){ joy2InputPosY.value=Joy2.GetPosY(); }, 50);
+setInterval(function(){ joy2Direzione.value=Joy2.GetDir(); }, 50);
+setInterval(function(){ joy2X.value=Joy2.GetX(); }, 50);
+setInterval(function(){ joy2Y.value=Joy2.GetY(); }, 50);
+
+    </script> -->
+
+
+</div>
+
+</html>
