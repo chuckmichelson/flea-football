@@ -1,8 +1,8 @@
-# beach-ball
+# flea-football
 
-This project is meant to be a jumping off point for creating multiplayer games. It's a node.js app that
+This is a multiplayer soccer game with flea-sized players. It's a node.js app that
 uses socket.io and some simple game physics. Players can enter their initials to join the
-game, and then use a virtual joystick to control their avatar and bounce a beach ball around. The joystick
+game, and then use a virtual joystick to control their avatar and kick a soccer ball around. The joystick
 works with a mouse on desktop and works with touch on mobile.
 
 <p>The code is a heavily modified version of a multiplayer snake game
@@ -14,4 +14,4 @@ the videos:
 <p>How to deploy it: https://www.youtube.com/watch?v=M9RDYkFs-EQ
 <p>The joystick comes from Roberto D'Amico (Bobboteck) under the MIT license.
 
-<p>You can try out the beach ball game here: https://stupefied-kirch-92ef59.netlify.app/
+<p>You can try out the beach ball game here: https://hardcore-borg-93c09f.netlify.app
