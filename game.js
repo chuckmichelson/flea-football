@@ -46,6 +46,10 @@ function createGameState() {
   return {
     numActivePlayers: 0,
     activePlayers: [],
+    score: {
+      red: 0,
+      blue: 0,
+    },
     round_count: 0,
     bounce_count: 0,
     score_count: 0,
@@ -129,46 +133,28 @@ function gameLoop(state) {
   // update player positions
   state = updateVelocityAndPosition(state);
 
-  // // decision rule
-  // for (let i = 0; i < MAX_PLAYERS_PER_ROOM; i++) {
-  //   // console.log("index: " + i)
-  //   if (state.x[i] === 1 ) {
-  //     // console.log("RIGHT")
-  //     state.ball.pos.x += 3;
-  //   }
-  //   if (state.x[i] === -1 ) {
-  //     // console.log("LEFT")
-  //     state.ball.pos.x += -3;
-  //   }
-  //   if (state.y[i] === 1 ) {
-  //     // console.log("DOWN")
-  //     state.ball.pos.y += 3;
-  //   }
-  //   if (state.y[i] === -1 ) {
-  //     // console.log("UP")
-  //     state.ball.pos.y += -3;
-  //   }
-
-  //   // once we read the velocity, zero it out
-  //   state.x[i] = 0;
-  //   state.y[i] = 0;
-
-  // }
-
   // keep the ball on the board
   scored_goal = false;
   // boundary_top = CANVAS_HEIGHT / 2 - PITCH_WIDTH / 2 + BALL_WIDTH / 2;
   // boundary_bottom = CANVAS_HEIGHT / 2 + PITCH_WIDTH / 2 - BALL_WIDTH / 2;
 
   if (state.ball.pos.x < BALL_BOUNDARY_LEFT) {
-    state.ball.vel_unit.x = -state.ball.vel_unit.x;
-    state.ball.last_bounce.x = BALL_BOUNDARY_LEFT - (state.ball.last_bounce.x - BALL_BOUNDARY_LEFT);
-    // scored_goal = true;
+    if (state.ball.pos.y > 100 && state.ball.pos.y < 200) {
+      state.score.blue += 1;
+      state = resetBall(state);
+    } else {
+      state.ball.vel_unit.x = -state.ball.vel_unit.x;
+      state.ball.last_bounce.x = BALL_BOUNDARY_LEFT - (state.ball.last_bounce.x - BALL_BOUNDARY_LEFT);
+    }
   }
   if (state.ball.pos.x > BALL_BOUNDARY_RIGHT) {
-    state.ball.vel_unit.x = -state.ball.vel_unit.x;
-    state.ball.last_bounce.x = BALL_BOUNDARY_RIGHT + (BALL_BOUNDARY_RIGHT - state.ball.last_bounce.x);
-    // scored_goal = true;
+    if (state.ball.pos.y > 100 && state.ball.pos.y < 200) {
+      state.score.red += 1;
+      state = resetBall(state);
+    } else {
+      state.ball.vel_unit.x = -state.ball.vel_unit.x;
+      state.ball.last_bounce.x = BALL_BOUNDARY_RIGHT + (BALL_BOUNDARY_RIGHT - state.ball.last_bounce.x);
+    }
   }
   if (state.ball.pos.y < BALL_BOUNDARY_TOP) {
     state.ball.vel_unit.y = -state.ball.vel_unit.y;
@@ -178,17 +164,17 @@ function gameLoop(state) {
     state.ball.vel_unit.y = -state.ball.vel_unit.y;
     state.ball.last_bounce.y =  BALL_BOUNDARY_BOTTOM + (BALL_BOUNDARY_BOTTOM - state.ball.last_bounce.y);
   }
-  if (scored_goal === true) {
-    state.ball.pos.x = CANVAS_WIDTH / 2;
-    state.ball.pos.y = CANVAS_HEIGHT / 2;
-    state.round_count = 0;
-    state.bounce_count = 0;
-    state.score_count = 0;
-    state.ball.last_bounce.x = state.ball.pos.x;
-    state.ball.last_bounce.y = state.ball.pos.y;
-    state.ball.vel_unit.x = 0;
-    state.ball.vel_unit.y = 0;
-  }
+  // if (scored_goal === true) {
+  //   state.ball.pos.x = CANVAS_WIDTH / 2;
+  //   state.ball.pos.y = CANVAS_HEIGHT / 2;
+  //   state.round_count = 0;
+  //   state.bounce_count = 0;
+  //   state.score_count = 0;
+  //   state.ball.last_bounce.x = state.ball.pos.x;
+  //   state.ball.last_bounce.y = state.ball.pos.y;
+  //   state.ball.vel_unit.x = 0;
+  //   state.ball.vel_unit.y = 0;
+  // }
 
   // reset all player velocities to 0 so the user must hold down the arrow keys
   state.x = Array(5).fill(0);
@@ -329,6 +315,19 @@ function updateVelocityAndPosition(state) {
     state.ball.pos.x = x + BOUNCE_VELOCITY * velunitx * (Date.now() - state.last_bounce_start) / 1000 + 1 / 2 * velunitx * BEACH_BALL_ACCELERATION * Math.pow((Date.now() - state.last_bounce_start) / 1000, 2);
     state.ball.pos.y = y + BOUNCE_VELOCITY * velunity * (Date.now() - state.last_bounce_start) / 1000 + 1 / 2 * velunity * BEACH_BALL_ACCELERATION * Math.pow((Date.now() - state.last_bounce_start) / 1000, 2);
   }
+
+  return state;
+}
+
+
+function resetBall(state) {
+
+  state.ball.pos.x = CANVAS_WIDTH / 2;
+  state.ball.pos.y = CANVAS_HEIGHT / 2;
+  state.ball.last_bounce.x = CANVAS_WIDTH / 2;
+  state.ball.last_bounce.y = CANVAS_HEIGHT / 2;
+  state.ball.vel_unit.x = 0;
+  state.ball.vel_unit.y = 0;
 
   return state;
 }

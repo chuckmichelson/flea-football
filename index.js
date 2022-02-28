@@ -8,8 +8,8 @@ const PITCH_WIDTH = 238;
 
 
 // ***** CHANGE THIS TO RUN ON HEROKU
-// const socket = io('http://localhost:3000');
-const socket = io('https://vast-garden-94636.herokuapp.com/');
+const socket = io('http://localhost:3000');
+// const socket = io('https://vast-garden-94636.herokuapp.com/');
 
 
 socket.on('initclient', handleInitClient);  // server sends your client ID to you
@@ -168,11 +168,8 @@ function paintGame(state) {
   numActivePlayers = state.activePlayers.length;
 
   // display red team score
-  top_ctx1.font = getFont(numActivePlayers);
-  if (numActivePlayers == undefined) {
-    numActivePlayers = '1';
-  }
-  // top_ctx1.fillText(numActivePlayers, 100, 90);
+  top_ctx1.font = getFont(state.score.red);
+  top_ctx1.fillText(state.score.red, 100, 90);
   // top_ctx1.fillText(Math.round(myx), 100, 90);
   top_ctx1.fillStyle = 'rgba(255, 255, 255, .3)';
   top_ctx1.font = "24px Copperplate, Papyrus, fantasy";
@@ -181,8 +178,8 @@ function paintGame(state) {
 
   // display blue team score
   bounce_count = state.bounce_count;
-  top_ctx1.font = getFont(bounce_count);
-  top_ctx1.fillText(bounce_count, 260, 90);
+  top_ctx1.font = getFont(state.score.blue);
+  top_ctx1.fillText(state.score.blue, 260, 90);
   // top_ctx1.fillText(Math.round(myy), 260, 90);
   top_ctx1.fillStyle = 'rgba(255, 255, 255, .3)';
   top_ctx1.font = "24px Copperplate, Papyrus, fantasy";
