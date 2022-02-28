@@ -144,7 +144,6 @@ function paintGame(state) {
     ctx2.font = "8px Copperplate, Papyrus, fantasy";
     ctx2.textAlign = "center";
     ctx2.fillStyle = state.activePlayers[i].team;
-    // ctx2.fillStyle = "white";
     ctx2.fillText(state.activePlayers[i].initials, state.activePlayers[i].posx, state.activePlayers[i].posy + 2);
   }
 
