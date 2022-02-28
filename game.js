@@ -15,7 +15,7 @@ const { KICK_TIME } = require('./constants');
 const { PITCH_WIDTH, PITCH_LENGTH } = require('./constants');
 const { BALL_BOUNDARY_LEFT, BALL_BOUNDARY_RIGHT, BALL_BOUNDARY_TOP, BALL_BOUNDARY_BOTTOM } = require('./constants');
 const { PLAYER_BOUNDARY_LEFT, PLAYER_BOUNDARY_RIGHT, PLAYER_BOUNDARY_TOP, PLAYER_BOUNDARY_BOTTOM } = require('./constants');
-
+const { GOAL_RADIUS } = require('./constants');
 
 const BEACH_BALL_ACCELERATION = DRAG_COEFFICIENT / BEACH_BALL_MASS;
 const PIXELS_PER_METER = BALL_WIDTH / BEACH_BALL_DIAMETER;
@@ -133,15 +133,10 @@ function gameLoop(state) {
   // update player positions
   state = updateVelocityAndPosition(state);
 
-  // keep the ball on the board
-  scored_goal = false;
-  // boundary_top = CANVAS_HEIGHT / 2 - PITCH_WIDTH / 2 + BALL_WIDTH / 2;
-  // boundary_bottom = CANVAS_HEIGHT / 2 + PITCH_WIDTH / 2 - BALL_WIDTH / 2;
-
+  // keep the ball on the board (except when entering goal)
   if (state.ball.pos.x < BALL_BOUNDARY_LEFT) {
-    if (state.ball.pos.y > 100 && state.ball.pos.y < 200) {
-      state.score.blue += 1;
-      state = resetBall(state);
+    if (state.ball.pos.y > CANVAS_HEIGHT / 2 - GOAL_RADIUS && state.ball.pos.y < CANVAS_HEIGHT / 2 + GOAL_RADIUS) {
+      // do nothing because the ball is in the goal and there's nothing to bounce off of
     } else {
       state.ball.vel_unit.x = -state.ball.vel_unit.x;
       state.ball.last_bounce.x = BALL_BOUNDARY_LEFT - (state.ball.last_bounce.x - BALL_BOUNDARY_LEFT);
@@ -164,6 +159,13 @@ function gameLoop(state) {
     state.ball.vel_unit.y = -state.ball.vel_unit.y;
     state.ball.last_bounce.y =  BALL_BOUNDARY_BOTTOM + (BALL_BOUNDARY_BOTTOM - state.ball.last_bounce.y);
   }
+
+  // check for goal
+  if (state.ball.pos.x < 0 - BALL_WIDTH / 2) {
+    state.score.blue += 1;
+    state = resetBall(state);
+  }
+
 
   // reset all player velocities to 0 so the user must hold down the arrow keys
   state.x = Array(5).fill(0);

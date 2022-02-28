@@ -5,7 +5,7 @@ const BALL_HEIGHT = 16;
 const AVATAR_RADIUS = 5;
 const PITCH_LENGTH = 360;
 const PITCH_WIDTH = 238;
-
+const GOAL_RADIUS = 12;
 
 // ***** CHANGE THIS TO RUN ON HEROKU
 const socket = io('http://localhost:3000');
@@ -159,6 +159,10 @@ function paintGame(state) {
     ctx3.drawImage(soccerball, state.ball.pos.x - BALL_WIDTH/2, state.ball.pos.y - BALL_HEIGHT/2);
   }
 
+  // display goals for animation
+  drawGoal(ctx1, 'red');
+  drawGoal(ctx1, 'blue');
+
   // scoreboard
   const top_display1 = document.getElementById("top_display1");
   const top_ctx1 = top_display1.getContext("2d");
@@ -231,7 +235,17 @@ function getFont(value) {
   } else {
     ndigits = Math.ceil(Math.log10(value + 1));
     fontsize = 100 - 20 * (ndigits-1);
-    console.log("Value: " + value + ", ndigits: " + ndigits + ", fontsize: " + fontsize)
+    // console.log("Value: " + value + ", ndigits: " + ndigits + ", fontsize: " + fontsize)
   }
   return fontsize + "px Copperplate, Papyrus, fantasy";
+}
+
+function drawGoal(ctx, team) {
+    ctx.fillStyle = team;
+    if(team === 'red') {
+        ctx.fillRect(2, CANVAS_HEIGHT / 2 - GOAL_RADIUS, 10, 2 * GOAL_RADIUS);
+    }
+    if(team === 'blue') {
+        ctx.fillRect(CANVAS_WIDTH - 12, CANVAS_HEIGHT / 2 - GOAL_RADIUS, 10, 2 * GOAL_RADIUS);
+    }
 }
