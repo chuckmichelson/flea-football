@@ -26,6 +26,7 @@ const GOAL_RADIUS = 12;
 const AFTERIMAGE_DURATION = 500;
 
 
+
 module.exports = {
   FRAME_RATE,
   CANVAS_WIDTH,

@@ -6,10 +6,12 @@ const AVATAR_RADIUS = 5;
 const PITCH_LENGTH = 360;
 const PITCH_WIDTH = 238;
 const GOAL_RADIUS = 12;
+const RED = "#D83939";
+const BLUE = "#2785DB";
 
 // ***** CHANGE THIS TO RUN ON HEROKU
-const socket = io('http://localhost:3000');
-// const socket = io('https://vast-garden-94636.herokuapp.com/');
+// const socket = io('http://localhost:3000');
+const socket = io('https://vast-garden-94636.herokuapp.com/');
 
 
 socket.on('initclient', handleInitClient);  // server sends your client ID to you
@@ -69,7 +71,7 @@ function joinGame() {
 
   // get player initials and send to server
   const initials = gameCodeInput.value;
-  socket.emit('joinGame', initials);
+  socket.emit('joinGame', initials[0]);
 
   // display joystick
   document.getElementById("initialScreen").style.display="none";
@@ -143,7 +145,11 @@ function paintGame(state) {
     drawCircle(ctx2, state.activePlayers[i].posx, state.activePlayers[i].posy, AVATAR_RADIUS);
     ctx2.font = "8px Copperplate, Papyrus, fantasy";
     ctx2.textAlign = "center";
-    ctx2.fillStyle = state.activePlayers[i].team;
+    if (state.activePlayers[i].team = "red") {
+        ctx2.fillStyle = RED;
+    } else {
+        ctx2.fillStyle = BLUE;
+    }
     ctx2.fillText(state.activePlayers[i].initials, state.activePlayers[i].posx, state.activePlayers[i].posy + 2);
   }
 
@@ -240,11 +246,16 @@ function getFont(value) {
 }
 
 function drawGoal(ctx, team) {
-    ctx.fillStyle = team;
     if(team === 'red') {
+        ctx.fillStyle = RED;
         ctx.fillRect(2, CANVAS_HEIGHT / 2 - GOAL_RADIUS, 10, 2 * GOAL_RADIUS);
     }
     if(team === 'blue') {
+        ctx.fillStyle = BLUE;
         ctx.fillRect(CANVAS_WIDTH - 12, CANVAS_HEIGHT / 2 - GOAL_RADIUS, 10, 2 * GOAL_RADIUS);
     }
+}
+
+function isLetter(str) {
+  return str.length === 1 && str.match(/[a-z]/i);
 }
