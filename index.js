@@ -12,8 +12,8 @@ const RED = "red";
 const BLUE = "blue";
 
 // ***** CHANGE THIS TO RUN ON HEROKU
-// const socket = io('http://localhost:3000');
-const socket = io('https://vast-garden-94636.herokuapp.com/');
+const socket = io('http://localhost:3000');
+// const socket = io('https://vast-garden-94636.herokuapp.com/');
 
 
 socket.on('initclient', handleInitClient);  // server sends your client ID to you
@@ -73,7 +73,12 @@ function joinGame() {
 
   // get player initials and send to server
   const initials = gameCodeInput.value;
-  socket.emit('joinGame', initials[0]);
+  if (initials.length === 0) {
+    initial = "";
+  } else {
+    initial = initials[0];
+  }
+  socket.emit('joinGame', initial);
 
   // display joystick
   document.getElementById("initialScreen").style.display="none";
