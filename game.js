@@ -79,21 +79,31 @@ function createGameState() {
 function addPlayer(state, clientid, playerInitials) {
   posx = state.ball.pos.x;
   posy = state.ball.pos.y;
+  thisplayersteam = assignTeam(state);
   freespace = false;
   while (freespace == false) {
-    // console.log("freespace: " + freespace)
-    randx = Math.floor(Math.random() * CANVAS_WIDTH - 4 * AVATAR_RADIUS) + 2 * AVATAR_RADIUS;
+
+    // the y position is totally random
     randy = Math.floor(Math.random() * CANVAS_HEIGHT - 4 * AVATAR_RADIUS) + 2 * AVATAR_RADIUS;
+
+    // red team players go to the left of the screen, blue team goes right
+    if ( thisplayersteam === "red") {
+      randx = Math.floor(Math.random() * CANVAS_WIDTH / 2);
+    } else {
+      randx = Math.floor(Math.random() * CANVAS_WIDTH / 2 + CANVAS_WIDTH / 2);
+    }
     distance = Math.sqrt(Math.pow(randx - posx, 2) + Math.pow(randy - posy, 2));
     if ( distance > BALL_WIDTH / 2 + AVATAR_RADIUS ) {
       freespace = true;
     }
+
   }
+
   let newPlayer = {
     clientid: clientid,
     initials: playerInitials,
     button: false,
-    team: assignTeam(state),
+    team: thisplayersteam,
     afterimage: 0,
     joyx: 0,
     joyy: 0,
