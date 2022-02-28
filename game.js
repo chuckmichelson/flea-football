@@ -143,9 +143,8 @@ function gameLoop(state) {
     }
   }
   if (state.ball.pos.x > BALL_BOUNDARY_RIGHT) {
-    if (state.ball.pos.y > 100 && state.ball.pos.y < 200) {
-      state.score.red += 1;
-      state = resetBall(state);
+    if (state.ball.pos.y > CANVAS_HEIGHT / 2 - GOAL_RADIUS && state.ball.pos.y < CANVAS_HEIGHT / 2 + GOAL_RADIUS) {
+      // do nothing because the ball is in the goal and there's nothing to bounce off of
     } else {
       state.ball.vel_unit.x = -state.ball.vel_unit.x;
       state.ball.last_bounce.x = BALL_BOUNDARY_RIGHT + (BALL_BOUNDARY_RIGHT - state.ball.last_bounce.x);
@@ -163,6 +162,10 @@ function gameLoop(state) {
   // check for goal
   if (state.ball.pos.x < 0 - BALL_WIDTH / 2) {
     state.score.blue += 1;
+    state = resetBall(state);
+  }
+  if (state.ball.pos.x > CANVAS_WIDTH + BALL_WIDTH / 2) {
+    state.score.red += 1;
     state = resetBall(state);
   }
 
