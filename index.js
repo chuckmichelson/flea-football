@@ -227,10 +227,10 @@ function drawCircle(ctx, x, y, r) {
 
 function getFont(value) {
   if (value === 0) {
-    fontsize = 60;
+    fontsize = 100;
   } else {
     ndigits = Math.ceil(Math.log10(value + 1));
-    fontsize = 60 - 20 * (ndigits-1);
+    fontsize = 100 - 20 * (ndigits-1);
     console.log("Value: " + value + ", ndigits: " + ndigits + ", fontsize: " + fontsize)
   }
   return fontsize + "px Copperplate, Papyrus, fantasy";

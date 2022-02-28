@@ -164,17 +164,6 @@ function gameLoop(state) {
     state.ball.vel_unit.y = -state.ball.vel_unit.y;
     state.ball.last_bounce.y =  BALL_BOUNDARY_BOTTOM + (BALL_BOUNDARY_BOTTOM - state.ball.last_bounce.y);
   }
-  // if (scored_goal === true) {
-  //   state.ball.pos.x = CANVAS_WIDTH / 2;
-  //   state.ball.pos.y = CANVAS_HEIGHT / 2;
-  //   state.round_count = 0;
-  //   state.bounce_count = 0;
-  //   state.score_count = 0;
-  //   state.ball.last_bounce.x = state.ball.pos.x;
-  //   state.ball.last_bounce.y = state.ball.pos.y;
-  //   state.ball.vel_unit.x = 0;
-  //   state.ball.vel_unit.y = 0;
-  // }
 
   // reset all player velocities to 0 so the user must hold down the arrow keys
   state.x = Array(5).fill(0);
