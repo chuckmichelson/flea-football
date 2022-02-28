@@ -12,8 +12,8 @@ const RED = "red";
 const BLUE = "blue";
 
 // ***** CHANGE THIS TO RUN ON HEROKU
-const socket = io('http://localhost:3000');
-// const socket = io('https://vast-garden-94636.herokuapp.com/');
+// const socket = io('http://localhost:3000');
+const socket = io('https://vast-garden-94636.herokuapp.com/');
 
 
 socket.on('initclient', handleInitClient);  // server sends your client ID to you
