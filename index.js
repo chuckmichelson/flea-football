@@ -126,10 +126,10 @@ function paintGame(state) {
   const ctx2 = layer2.getContext('2d');
   ctx2.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   for (let i = 0; i < state.numActivePlayers; i++) {
-    ctx2.strokeStyle = 'red';
+    ctx2.strokeStyle = state.activePlayers[i].team;
     if (state.activePlayers[i].clientid ===  myClientID) {
-      myx = state.activePlayers[i].posx;
-      myy = state.activePlayers[i].posy;
+      // myx = state.activePlayers[i].posx;
+      // myy = state.activePlayers[i].posy;
       ctx2.lineWidth = 2;
     } else {
       ctx2.lineWidth = 1;

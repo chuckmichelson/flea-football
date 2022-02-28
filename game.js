@@ -16,6 +16,7 @@ const { PITCH_WIDTH, PITCH_LENGTH } = require('./constants');
 const { BALL_BOUNDARY_LEFT, BALL_BOUNDARY_RIGHT, BALL_BOUNDARY_TOP, BALL_BOUNDARY_BOTTOM } = require('./constants');
 const { PLAYER_BOUNDARY_LEFT, PLAYER_BOUNDARY_RIGHT, PLAYER_BOUNDARY_TOP, PLAYER_BOUNDARY_BOTTOM } = require('./constants');
 const { GOAL_RADIUS } = require('./constants');
+const { AFTERIMAGE_DURATION } = require('./constants');
 
 const BEACH_BALL_ACCELERATION = DRAG_COEFFICIENT / BEACH_BALL_MASS;
 const PIXELS_PER_METER = BALL_WIDTH / BEACH_BALL_DIAMETER;
@@ -92,6 +93,7 @@ function addPlayer(state, clientid, playerInitials) {
     clientid: clientid,
     initials: playerInitials,
     button: false,
+    team: assignTeam(state),
     afterimage: 0,
     joyx: 0,
     joyy: 0,
@@ -107,6 +109,28 @@ function addPlayer(state, clientid, playerInitials) {
   return newPlayer;
 }
 
+
+function assignTeam(state) {
+  if (state.activePlayers.length < 1) {
+    return "red";
+  }
+  nredteam = 0;
+  nblueteam = 0;
+  for ( var i = state.activePlayers.length - 1; i >= 0; i-- ) {
+    if (state.activePlayers[i].team === "red") {
+      nredteam += 1;
+    }
+    if (state.activePlayers[i].team === "blue") {
+      nblueteam += 1;
+    }
+  }
+  if ( nredteam <= nblueteam) {
+    return "red";
+  } else {
+    return "blue";
+  }
+}
+
 function gameLoop(state) {
 
   // console.log("made it to gameLoop")
@@ -114,20 +138,20 @@ function gameLoop(state) {
     return;
   }
 
-  // check if the round is complete (everyone bounced the ball)
-  var round_complete = true;
-  for ( var i = state.activePlayers.length - 1; i >= 0; i-- ) {
-    if (state.activePlayers[i].bounced === false) {
-      round_complete = false;
-    }
-  }
-  if (round_complete === true) {
-    for ( var i = state.activePlayers.length - 1; i >= 0; i-- ) {
-      state.activePlayers[i].bounced = false;
-      state.activePlayers[i].bouncetimestap = null;
-      state.round_count += 1;
-    }
-  }
+  // // check if the round is complete (everyone bounced the ball)
+  // var round_complete = true;
+  // for ( var i = state.activePlayers.length - 1; i >= 0; i-- ) {
+  //   if (state.activePlayers[i].bounced === false) {
+  //     round_complete = false;
+  //   }
+  // }
+  // if (round_complete === true) {
+  //   for ( var i = state.activePlayers.length - 1; i >= 0; i-- ) {
+  //     state.activePlayers[i].bounced = false;
+  //     state.activePlayers[i].bouncetimestap = null;
+  //     state.round_count += 1;
+  //   }
+  // }
 
 
   // update player positions
@@ -255,7 +279,10 @@ function updateVelocityAndPosition(state) {
 
     // update this player's avatar color (based on time since they bounced the ball)
     if (state.activePlayers[i].bounced === true) {
-      state.activePlayers[i].afterimage = Math.max(0, 15 - BOUNCE_IMAGE_DECAY * (Date.now() - state.activePlayers[i].bouncetimestap));
+      state.activePlayers[i].afterimage = Math.max(0, 10 - BOUNCE_IMAGE_DECAY * (Date.now() - state.activePlayers[i].bouncetimestap));
+      if (Date.now() - state.activePlayers[i].bouncetimestap > AFTERIMAGE_DURATION) {
+        state.activePlayers[i].bounced = false;
+      }
     }
 
     // keep this player on the screen
