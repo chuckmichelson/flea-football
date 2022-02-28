@@ -6,8 +6,10 @@ const AVATAR_RADIUS = 5;
 const PITCH_LENGTH = 360;
 const PITCH_WIDTH = 238;
 const GOAL_RADIUS = 12;
-const RED = "#D83939";
-const BLUE = "#2785DB";
+// const RED = "#D83939";
+// const BLUE = "#2785DB";
+const RED = "red";
+const BLUE = "blue";
 
 // ***** CHANGE THIS TO RUN ON HEROKU
 // const socket = io('http://localhost:3000');
@@ -145,7 +147,7 @@ function paintGame(state) {
     drawCircle(ctx2, state.activePlayers[i].posx, state.activePlayers[i].posy, AVATAR_RADIUS);
     ctx2.font = "8px Copperplate, Papyrus, fantasy";
     ctx2.textAlign = "center";
-    if (state.activePlayers[i].team = "red") {
+    if (state.activePlayers[i].team === "red") {
         ctx2.fillStyle = RED;
     } else {
         ctx2.fillStyle = BLUE;
