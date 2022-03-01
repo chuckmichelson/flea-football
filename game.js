@@ -76,7 +76,7 @@ function createGameState() {
 }
 
 
-function addPlayer(state, clientid, playerInitials) {
+function addPlayer(state, clientid, playerName) {
   posx = state.ball.pos.x;
   posy = state.ball.pos.y;
   thisplayersteam = assignTeam(state);
@@ -101,7 +101,7 @@ function addPlayer(state, clientid, playerInitials) {
 
   let newPlayer = {
     clientid: clientid,
-    initials: playerInitials,
+    name: playerName,
     button: false,
     team: thisplayersteam,
     afterimage: 0,

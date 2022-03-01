@@ -58,7 +58,7 @@ function trimActivePlayerList(state, allUsers) {
    for ( var i = state.activePlayers.length - 1; i >= 0; i-- ) {
 
       thisClientID = state.activePlayers[i].clientid;
-      thisInitials = state.activePlayers[i].initials;
+      thisName = state.activePlayers[i].name;
 
       match = false;
       for ( var j = 0; j < allUsers.length; j++ ) {
@@ -67,7 +67,7 @@ function trimActivePlayerList(state, allUsers) {
          }
       }
       if (match === false) {
-         console.log("Player " + thisClientID + " (" + thisInitials + ")" + " left the room")
+         console.log("Player " + thisClientID + " (" + thisName + ")" + " left the room")
          state.activePlayers.splice(i, 1);
       }
    }
