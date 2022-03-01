@@ -73,6 +73,9 @@ function joinGame() {
 
   // get player name and send to server
   const name = gameCodeInput.value;
+  if ( !name ) {
+    name = "";
+  }
   socket.emit('joinGame', name);
 
   // display joystick
@@ -152,6 +155,7 @@ function paintGame(state) {
     } else {
         ctx2.fillStyle = BLUE;
     }
+
     ctx2.fillText(state.activePlayers[i].name[0], state.activePlayers[i].posx, state.activePlayers[i].posy + 2);
   }
 

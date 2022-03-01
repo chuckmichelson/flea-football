@@ -282,8 +282,8 @@ function updateVelocityAndPosition(state) {
     if (joystick_vector_length < 0.01) {
       joystick_vector_length = 0.01;
     }
-    state.activePlayers[i].velx = state.activePlayers[i].joyx * JOYSTICK_MULTIPLIER / 140;
-    state.activePlayers[i].vely = -state.activePlayers[i].joyy * JOYSTICK_MULTIPLIER / 140;
+    state.activePlayers[i].velx = Math.min(state.activePlayers[i].joyx * JOYSTICK_MULTIPLIER / 140, .03);
+    state.activePlayers[i].vely = Math.min(-state.activePlayers[i].joyy * JOYSTICK_MULTIPLIER / 140, .03);
     state.activePlayers[i].posx += state.activePlayers[i].velx * (Date.now() - state.activePlayers[i].joytimestamp);
     state.activePlayers[i].posy += state.activePlayers[i].vely * (Date.now() - state.activePlayers[i].joytimestamp);
 
